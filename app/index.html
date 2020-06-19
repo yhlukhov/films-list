@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+</head>
+
+<body>
+    <section>
+        <!-- Modal details page -->
+        <div class="modal" id="detailsModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="poster"></div>
+                        <div class="details">
+                            <h3 class="movieTitle"></h3>
+                            <h5 class="genre"></h5>
+                            <h4 class="plot"></h4>
+                            <p class="writer"></p>
+                            <p class="director"></p>
+                            <p class="starring"></p>
+                            <p class="boxOffice"></p>
+                            <p class="awards"></p>
+                            <p><span>Raitings:</span></p>
+                            <p class="ratings"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="topControls">
+            <input id="input" type="text" value="" placeholder="write movie name here...">
+            <button id="search" onclick="search()">search</button>
+        </div>
+        <h1 id="searchTitle"></h1>
+        <div class="movies">
+            <!-- list of movies will be added by script -->
+        </div>
+    </section>
+
+    <script src="scripts/jquery-3.5.1.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/main.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+body {
+    background-color: lightgrey;
+}
+
+h1 {
+    font-size: xx-large;
+    padding-top: 15px;
+}
+h2 {
+    font-size: x-large;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+h3 {
+    width: 100%;
+    font-size: large;
+    background-color: lightgray;
+    padding: 15px;
+}
+h4 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: large;
+}
+h5 {
+    font-size: small;
+    font-style: italic;
+    padding-top: 15px;
+}
+
+p {
+    padding-top: 10px;
+}
+p span {
+    font-weight: bold;
+}
+
+td {
+    padding-bottom: 5px;
+    padding-right: 15px;
+    font-size: 14px;
+}
+td:nth-child(odd) {
+    padding-left: 60px;
+}
+
+img {
+    height: 300px;
+}
+
+section {
+    min-width: 400px;
+    max-width: 1000px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align: center;
+    background-color: lightyellow;
+}
+
+input {
+    width: 45%;
+    height: 30px;
+}
+button {
+    height: 30px;
+}
+
+#search {
+    width: 45%;
+}
+
+.movies {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.movie {
+    width: 230px;
+    margin: 10px;
+    padding-bottom: 40px;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    position: relative;
+}
+
+.more {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.modal-body {
+    border: 2px solid rgb(74, 74, 74);
+    background-color: lightyellow;
+    display: flex;
+}
+
+.details {
+    text-align: left;
+    margin-left: 15px;
+}
