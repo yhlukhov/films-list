@@ -1,7 +1,6 @@
 // Inicialization
 const paginator = function () { //paginator function
     let start = 1
-
     function next(str) {
         if (str == '+') return ++start
         else if (str == '-') return --start
@@ -9,14 +8,16 @@ const paginator = function () { //paginator function
     }
     return next
 }
-const pageId = paginator() //paginator instance
+let pageId //paginator instance
+let searchItem //search item
 const apiKey = '2ddeab55' //api key
 
-// Functions
-function search() { //search and load movies list from OMdb
-    let searchItem = $('#input').val()
+// Search and load movies list from OMdb
+function search() {
+    searchItem = $('#input').val()
     $('#searchTitle').text(`Search results for ${searchItem}:`)
     $('.movies').html(``)
+    pageId = paginator()
     let xhr = new XMLHttpRequest() //Initialize http request
     xhr.open('GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId()}`) //open http request
     xhr.send() //send request
@@ -25,11 +26,14 @@ function search() { //search and load movies list from OMdb
             if (xhr.status === 200) {
                 let moviesArray = JSON.parse(xhr.response).Search //storage array to load list of movies from OMdb
                 for (let m of moviesArray) addMovie(m)
+                $('.current').text(`Page: ${pageId()}`)
+                $('.paginator').css('display', 'flex');
+                $('.prev').hide()
             }
     }
 }
-
-function addMovie(movie) { //add single movie item on page. parameter movie=object
+// Add single movie item on page
+function addMovie(movie) {
     let item = `<div class="movie">`
     item += `<img src=${movie.Poster}></img>`
     item += `<h2>${movie.Title}</h2>`
@@ -41,6 +45,7 @@ function addMovie(movie) { //add single movie item on page. parameter movie=obje
     console.log(item)
 }
 
+// Load Details page for selected movie
 function details() {
     let movieId = $(event.target).val()
     let xhr = new XMLHttpRequest()
@@ -71,6 +76,24 @@ function details() {
     $('#detailsModal').modal()
 }
 
-function showModal() {
-    $('#detailsModal').modal()
+// Paginator
+function prevPage() {
+    $('.movies').html(``)
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId('-')}`, false) //open http request
+    xhr.send()
+    let moviesArray = JSON.parse(xhr.response).Search
+    for (let m of moviesArray) addMovie(m)
+    if (pageId()==1) $('.prev').hide()
+}
+
+function nextPage() {
+    $('.movies').html(``)
+    $('.prev').show()
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId('+')}`, false) //open http request
+    xhr.send()
+    let moviesArray = JSON.parse(xhr.response).Search
+    for (let m of moviesArray) addMovie(m)
+    if (pageId()==1) $('.prev').hide()
 }

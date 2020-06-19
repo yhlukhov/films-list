@@ -1,10 +1,12 @@
 body {
     background-color: lightgrey;
+    color: rgb(119, 38, 0);
 }
 
 h1 {
     font-size: xx-large;
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 h2 {
     font-size: x-large;
@@ -47,13 +49,17 @@ td:nth-child(odd) {
 img {
     height: 300px;
 }
+.prev img, .next img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
 
 section {
     min-width: 400px;
     max-width: 1000px;
     min-height: 100vh;
     margin: 0 auto;
-    padding-top: 20px;
     text-align: center;
     background-color: lightyellow;
 }
@@ -71,7 +77,6 @@ button {
 }
 
 .movies {
-    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -103,4 +108,10 @@ button {
 .details {
     text-align: left;
     margin-left: 15px;
+}
+
+.paginator {
+    display: none;
+    justify-content: center;
+    align-items: center;
 }

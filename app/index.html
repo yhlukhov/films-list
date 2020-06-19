@@ -33,13 +33,19 @@
                 </div>
             </div>
         </div>
+        <h1>Movies explorer</h1>
         <div class="topControls">
-            <input id="input" type="text" value="" placeholder="write movie name here...">
-            <button id="search" onclick="search()">search</button>
+            <input id="input" type="text" value="" placeholder="Write movie name here...">
+            <button id="search" onclick="search()">Search</button>
         </div>
         <h1 id="searchTitle"></h1>
         <div class="movies">
             <!-- list of movies will be added by script -->
+        </div>
+        <div class="paginator">
+            <div class="prev" onclick="prevPage()"><img src="images/left-arrow.png" alt="prev"></div>
+            <div class="current"></div>
+            <div class="next" onclick="nextPage()"><img src="images/right-arrow.png" alt="next"></div>
         </div>
     </section>
 
