@@ -35,7 +35,10 @@
         </div>
         <h1>Movies explorer</h1>
         <div class="topControls">
-            <input id="input" type="text" value="" placeholder="Write movie name here...">
+            <label for="input">
+                <input id="input" type="text" value="" placeholder="Write movie name here..." oninput="showClearIcon()">
+                <span onclick="clearText()"><img src="images/close.png" alt="close"></span>
+            </label>
             <button id="search" onclick="search()">Search</button>
         </div>
         <h1 id="searchTitle"></h1>

@@ -85,6 +85,7 @@ function prevPage() {
     let moviesArray = JSON.parse(xhr.response).Search
     for (let m of moviesArray) addMovie(m)
     if (pageId()==1) $('.prev').hide()
+    $('.current').text(`Page: ${pageId()}`)
 }
 
 function nextPage() {
@@ -96,4 +97,13 @@ function nextPage() {
     let moviesArray = JSON.parse(xhr.response).Search
     for (let m of moviesArray) addMovie(m)
     if (pageId()==1) $('.prev').hide()
+    $('.current').text(`Page: ${pageId()}`)
+}
+
+function showClearIcon() {
+    $('label span').show()
+}
+function clearText() {
+    $('#input').val('')
+    $('label span').hide()
 }

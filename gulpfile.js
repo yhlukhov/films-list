@@ -32,6 +32,10 @@ const paths = {
     images: {
         src: 'app/images/*.*',
         dest: 'build/images'
+    },
+    fonts: {
+        src: 'app/fonts/*.*',
+        dest: 'build/fonts'
     }
 };
 
@@ -92,6 +96,12 @@ function images() {
         .pipe(browserSync.stream())
 }
 
+function fonts() {
+    return gulp.src(paths.fonts.src)
+        .pipe(gulp.dest(paths.fonts.dest))
+        .pipe(browserSync.stream())
+}
+
 function watch() {
     gulp.watch(paths.styles.src, styles);
     gulp.watch(paths.bootstrap.src, bootstrap);
@@ -99,9 +109,10 @@ function watch() {
     gulp.watch(paths.plugins.src, plugins);
     gulp.watch(paths.html.src, html);
     gulp.watch(paths.images.src, images);
+    gulp.watch(paths.fonts.src, fonts);
     gulp.watch('./app/*.html', gulp.series(browserReload));
 }
 
-const build = gulp.parallel(styles, bootstrap, scripts, plugins, html, images);
+const build = gulp.parallel(styles, bootstrap, scripts, plugins, html, images, fonts);
 gulp.task('build', build);
 gulp.task('default', gulp.parallel(watch, browser, build));
