@@ -38,7 +38,7 @@ $(document).ready(()=>{
 // }
 
 // Search and load movies list from OMdb
-function search() {
+async function search() {
     searchItem = $('#input').val()
     $('#searchTitle').text(`Search results for ${searchItem}:`)
     $('#errorPlaceholder').hide()
@@ -48,7 +48,7 @@ function search() {
     $('.prev').hide()
     pageId = paginator()
     let xhr = new XMLHttpRequest() //Initialize http request
-    sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId()}`)
+    await sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId()}`)
         .then(response => getMovieList(response))
         .then(movieList => loadMovies(movieList))
         .catch(error => displayError(error))
@@ -79,7 +79,7 @@ function loadMovies(moviesList) { // load movies on page
     $('.paginator').css('display', 'flex');
 }
 
-async function addMovie(movie) {// Add single html movie item on page
+function addMovie(movie) {// Add single html movie item on page
     let item = `<div class="movie">`
     item += `<img src=${movie.Poster}></img>`
     item += `<h2>${movie.Title}</h2>`
@@ -128,13 +128,13 @@ function displayError(error) {
 // }
 
 // Load Details page for selected movie
-function details() { // Open modal window with movie-details
+async function details() { // Open modal window with movie-details
     let movieId = $(event.target).val()
     let xhr = new XMLHttpRequest() //Initialize http request
-    sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`)
+    await sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`)
         .then(response => loadMovieDetails(response))
-        .then($('#detailsModal').modal())
         .catch(error => displayError(error))
+    $('#detailsModal').modal()
 }
 
 function loadMovieDetails(movieData) { // get single movie details and put them on modal window
