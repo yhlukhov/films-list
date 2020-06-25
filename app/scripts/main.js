@@ -40,32 +40,36 @@ $(document).ready(()=>{
 // Search and load movies list from OMdb
 async function search() {
     searchItem = $('#input').val()
+    pageId = paginator()
+    let url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId()}`
     $('#searchTitle').text(`Search results for ${searchItem}:`)
     $('#errorPlaceholder').hide()
     $('.movies').html(``)
     $('.movies').hide()
     $('.paginator').css('display', 'none');
     $('.prev').hide()
-    pageId = paginator()
-    let xhr = new XMLHttpRequest() //Initialize http request
-    await sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId()}`)
-        .then(response => getMovieList(response))
-        .then(movieList => loadMovies(movieList))
-        .catch(error => displayError(error))
+    // let xhr = new XMLHttpRequest() //Initialize http request
+    // await sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchItem}&page=${pageId()}`)
+    //     .then(response => getMovieList(response))
+    //     .then(movieList => loadMovies(movieList))
+    //     .catch(error => displayError(error))
+    await fetch(url)
+        .then(response => {return(response.json())})
+        .then(getMovieList).then(loadMovies).catch(displayError)
     $('.movies').fadeIn()
 }
 
-function sendXHRRequest (xhr, method, url) {
-    return new Promise((resolve, reject)=>{
-        xhr.open(method, url) //open http request
-        xhr.send()
-        xhr.onload = function() {
-            JSON.parse(xhr.response).Response == "True"
-                ? resolve(JSON.parse(xhr.response))
-                : reject(JSON.parse(xhr.response).Error)
-        }
-    })
-}
+// function sendXHRRequest (xhr, method, url) {
+//     return new Promise((resolve, reject)=>{
+//         xhr.open(method, url) //open http request
+//         xhr.send()
+//         xhr.onload = function() {
+//             JSON.parse(xhr.response).Response == "True"
+//                 ? resolve(JSON.parse(xhr.response))
+//                 : reject(JSON.parse(xhr.response).Error)
+//         }
+//     })
+// }
 
 function getMovieList(response) { // get movie list from response
     return new Promise((resolve, reject)=>{
@@ -130,10 +134,14 @@ function displayError(error) {
 // Load Details page for selected movie
 async function details() { // Open modal window with movie-details
     let movieId = $(event.target).val()
-    let xhr = new XMLHttpRequest() //Initialize http request
-    await sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`)
-        .then(response => loadMovieDetails(response))
-        .catch(error => displayError(error))
+    let url = `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`
+    // let xhr = new XMLHttpRequest() //Initialize http request
+    // await sendXHRRequest(xhr, 'GET', `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`)
+    //     .then(response => loadMovieDetails(response))
+    //     .catch(error => displayError(error))
+    await fetch(url)
+        .then(response => {return response.json()})
+        .then(loadMovieDetails)
     $('#detailsModal').modal()
 }
 
